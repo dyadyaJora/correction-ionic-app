@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Вариабельность сердечного ритма</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>На этой странице можно записать трек вариабельности сердечного ритма.</p>
+  <p></p>
+  <p>Параметры устройства:</p>
+  <ul>
+    <li><b>Фонарик(вспышка)</b>: {{ hasFlashlight? 'да' : 'нет'}}</li>
+    <li><b>Наличие камеры</b>: {{ hasCamera? 'да' : 'нет'}}</li>
+    <li><b>Используемая камера</b>: {{ cameraInUse? cameraInUse : 'нет'}}</li>
+    <li><b>FPS</b>: {{ fps}}</li>
+  </ul>
+  <div>
+    <button ion-button [disabled]="running" (click)="startGrabFrame()" color="secondary">Начать запись</button>
+    <button ion-button [disabled]="!running" (click)="stopGrabFrame()" color="danger">Остановить запись</button>
+    <button ion-button *ngIf="running"><ion-spinner></ion-spinner> {{timeCounter}} с</button>
+  </div>
+  <div #chart class="pulse-chart"></div>
+
+  <canvas style="display: none;"></canvas>
+  <div *ngIf="isEnd">
+    <ion-list>
+      <ion-item>
+        <ion-label>Пол</ion-label>
+        <ion-select [(ngModel)]="sex">
+          <ion-option value="m">Мужской</ion-option>
+          <ion-option value="f">Женский</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" fixed>Возраст</ion-label>
+        <ion-input type="number" min="16" max="100" placeholder="Полных лет" [(ngModel)]="age"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Комментарий</ion-label>
+        <ion-input type="email" placeholder="Можете оставить комментарий" [(ngModel)]="comment"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button (click)="sendMeta()">Отправить</button>
+  </div>
+  <div [innerHTML]="csvResData"></div>
+</ion-content>

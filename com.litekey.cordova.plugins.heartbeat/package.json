@@ -1,0 +1,44 @@
+{
+  "_from": "git+https://github.com/enissay14/heartbeat-cordova-plugin.git",
+  "_id": "heartbeat-codova-plugin@1.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/heartbeat-codova-plugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/enissay14/heartbeat-cordova-plugin.git",
+    "rawSpec": "https://github.com/enissay14/heartbeat-cordova-plugin.git",
+    "saveSpec": "git+https://github.com/enissay14/heartbeat-cordova-plugin.git",
+    "fetchSpec": "https://github.com/enissay14/heartbeat-cordova-plugin.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/enissay14/heartbeat-cordova-plugin.git#c6a1383130d1aa1e5ece59edfc558e326e49cd51",
+  "_spec": "https://github.com/enissay14/heartbeat-cordova-plugin.git",
+  "_where": "C:\\Users\\user\\Documents\\_appMobile\\psy2",
+  "author": {
+    "name": "LiteKey"
+  },
+  "bugs": {
+    "url": "https://github.com/Litekey/heartbeat-cordova-plugin/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A plugin that helps capture the heart rate using the cellphone's camera and flashlight",
+  "homepage": "https://github.com/Litekey/heartbeat-cordova-plugin#readme",
+  "license": "ISC",
+  "main": "www/heartbeat.js",
+  "name": "heartbeat-codova-plugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Litekey/heartbeat-cordova-plugin.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

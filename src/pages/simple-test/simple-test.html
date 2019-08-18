@@ -1,0 +1,51 @@
+<!--
+  Generated template for the SimpleTestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons end>
+      <button ion-button clear icon-end (click)="onPause()">
+        <ion-icon name="pause"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="bw" [ngClass]="{'anim-paused': !isRunning}">
+  <div #slow class="circle-wrapper slow">
+    <div class="runner"></div>
+  </div>
+  </div>
+  <div class="bw"  [ngClass]="{'anim-paused': !isRunning}">
+  <div #middle class="circle-wrapper middle">
+    <div class="runner"></div>
+  </div>
+  </div>
+  <div class="bw"  [ngClass]="{'anim-paused': !isRunning}">
+  <div #fast class="circle-wrapper fast">
+    <div class="runner"></div>
+  </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button full class="btn-slow" (click)="onFirstClick()">1</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full class="btn-middle" (click)="onSecondClick()">2</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full class="btn-fast"(click)="onThirdClick()">3</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Финиш!</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-end (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div>
+		<ul>
+			<ol>Верных: {{ right }}</ol>
+			<ol>Неверных: {{ errors }}</ol>
+			<ol>Пропущенных: {{ lost }}</ol>
+		</ul>
+	</div>
+
+	<button ion-button [disabled]="true" icon-start><ion-icon name="save"></ion-icon>Скачать статистику(CSV)</button>
+	<button ion-button [disabled]="true" icon-start><ion-icon name="save"></ion-icon>Скачать трек(CSV)</button>
+</ion-content>

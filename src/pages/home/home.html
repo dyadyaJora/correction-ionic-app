@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Главная</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor= "let test of tests; let i=index;" (click)="openTest(i)">
+      <ion-card-content>
+        <ion-card-title>
+          <b>#{{ test.id }}</b> {{ test.name }} 
+        </ion-card-title>
+      </ion-card-content>
+      <ion-row> 
+        <ion-col center text-center>
+        <button ion-button icon-left clear small color="secondary">
+            <ion-icon name="time"></ion-icon>
+            <div>{{ test.duration ? test.duration/60/1000 + ' мин' : '-'}}</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <button ion-button icon-left clear small color="secondary">
+            <ion-icon name="md-eye"></ion-icon>
+            <div>{{ test.levels }}</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <button ion-button small class="place-card__agent" color="secondary">Начать</button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+</ion-content>

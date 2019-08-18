@@ -1,0 +1,7 @@
+{
+  "name": "psy2",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

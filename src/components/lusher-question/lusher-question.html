@@ -1,0 +1,8 @@
+<ion-card>
+  <ion-card-content>
+    <div class="question-header">{{ question }}</div>
+    <div class="colors-wrapper">
+      <div class="color-item" *ngFor="let color of colors" (click)="onChooseColor(color)" [style.background]="color.hex"></div>
+    </div>
+  </ion-card-content>
+</ion-card>

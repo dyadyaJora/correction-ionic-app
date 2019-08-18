@@ -1,0 +1,71 @@
+page-simple-test {
+	.bw {   
+		position: relative;
+		margin-bottom: calc( ( 100vh - 120px - 32px - 360px ) / 3);
+	}
+
+	.bw::before {
+	    content: "";
+	    width: 4px;
+	    height: 8px;
+	    left: calc(50% - 2px);
+	    top: 0;
+	    background: #b6b6b6;
+	    position: absolute;
+	}
+	
+	.anim-paused {
+	    animation-play-state: paused;
+	}
+
+	.circle-wrapper {
+		position: relative;
+		margin: auto;
+		// height: calc(30% - 20px);
+		border: 1px solid #b6b6b6;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+        animation-name: run;
+	    animation-iteration-count: infinite;
+	    animation-timing-function: linear;
+	    animation-play-state: inherit;
+	}
+
+	.runner {
+	   width: 16px;
+	    height: 16px;
+	    position: absolute;
+	    top: -8px;
+	    left: calc(50% - 8px);
+	    border-radius: 50%;
+	}
+	.slow {
+		animation-duration: 6s;
+	}
+
+	.slow .runner, .btn-slow {
+	    background-color: #4f4;
+	}	
+
+	.middle {
+		animation-duration: 3s;
+	}
+
+	.middle .runner, .btn-middle {
+	    background-color: #44f;
+	}	
+
+	.fast {
+		animation-duration: 2s;
+	}
+
+	.fast .runner, .btn-fast {
+	    background-color: #ff9f44;
+	}
+
+	@keyframes run {
+	  0%   { transform: rotateZ(0deg); }
+	  100% { transform: rotateZ(360deg); } 
+	}
+}

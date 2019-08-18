@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Самочувствие-Активность-Настроение</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="san-wrapper">
+    <ion-grid class="b-grid" *ngFor="let item of data">
+      <ion-row>
+        <ion-col size="6">{{ item.leftText }}</ion-col>
+        <ion-col size="6">{{ item.rightText }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngFor="let point of points; let i = index" class="b-points">
+          <label class="b-point">
+            <input class="item" type="radio" name="{{item.id}}" [value]="point" [(ngModel)]="results[item.id]">
+            <div class="b-point__val button button-md button-default button-default-md button-md-light button-small button-small-md" color="light" ion-button="" small="" ng-reflect-color="light">
+              <span class="button-inner">{{ point > 0 ? point : -point }}</span>
+              <div class="button-effect"></div>
+            </div>
+          </label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="b-san-send">
+      <button ion-button (click)="send()">Отправить!</button>
+    </div>
+  </div>
+</ion-content>

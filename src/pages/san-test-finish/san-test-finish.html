@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Финиш</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-end (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  Самочувствие: {{points.s}} - {{score.s}}<br>
+  Активность: {{points.a}} - {{score.a}}<br>
+  Настроение: {{points.n}} - {{score.n}}<br>
+
+
+  <ion-list>
+  <ion-item>
+    <ion-label>Пол</ion-label>
+    <ion-select [(ngModel)]="sex">
+      <ion-option value="m">Мужской</ion-option>
+      <ion-option value="f">Женский</ion-option>
+    </ion-select>
+  </ion-item>
+    <ion-item>
+      <ion-label color="primary" fixed>Возраст</ion-label>
+      <ion-input type="number" min="16" max="100" placeholder="Полных лет" [(ngModel)]="age"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Комментарий</ion-label>
+      <ion-input type="email" placeholder="Можете оставить комментарий" [(ngModel)]="comment"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button (click)="send()">Отправить</button>
+</ion-content>

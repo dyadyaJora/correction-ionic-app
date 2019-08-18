@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Тест Люшера</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div *ngIf="waiting; then waitingBlock else questionBlock"></div> 
+	<ng-template #waitingBlock>
+		<p>Нажмите кнопку, когда будете готовы продолжить</p>
+		<button ion-button (click)="onRunNext()">Продолжить</button>
+	</ng-template> 
+
+	<ng-template #questionBlock>
+		<lusher-question [question]="currentQuestion" [colors]="currentColors" (onChoosen)="onChoosen($event)"></lusher-question>
+	</ng-template>
+
+	<button *ngIf="tryAgainButton" ion-button (click)="send()">Отправить результаты еще раз</button>
+</ion-content>
