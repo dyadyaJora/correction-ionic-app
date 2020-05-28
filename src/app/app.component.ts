@@ -10,7 +10,7 @@ import { PulsePage } from '../pages/pulse/pulse';
 import { PulseVariabilityPage } from '../pages/pulse-variability/pulse-variability';
 
 import { AuthProvider} from '../providers/auth';
-
+  
 @Component({
   templateUrl: 'app.html'
 })

@@ -1,4 +1,4 @@
 export var environment = {
-  apiUrl: 'https://itmo-vma.ru/nir-api',
-  production: true
+  apiUrl: 'http://localhost:3000/nir-api',
+  production: false
 }
