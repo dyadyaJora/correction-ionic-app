@@ -189,7 +189,7 @@ export class PulseVariabilityPage {
         this._updateChart(data);
       })
       .catch((err) => {
-        throw new Error('error recieving responce from worker ' + err);
+        // throw new Error('error recieving responce from worker ' + err);
         console.log('error recieving responce from worker', err)
       });
     }, 1);
