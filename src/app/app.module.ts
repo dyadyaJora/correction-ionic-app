@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorHandler, NgModule, Injectable  } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
@@ -16,6 +16,7 @@ import { SimpleTestFinishPage } from '../pages/simple-test-finish/simple-test-fi
 import { SanTestFinishPage } from '../pages/san-test-finish/san-test-finish';
 import { LusherTestPage } from '../pages/lusher-test/lusher-test';
 import { LusherTestFinishPage } from '../pages/lusher-test-finish/lusher-test-finish';
+import { DeviceInfoPage } from '../pages/device-info/device-info';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { ComponentsModule } from '../components/components.module';
@@ -30,6 +31,7 @@ import { RequestsProvider } from '../providers/requests';
 import { BaseUrlInterceptor } from '../providers/base-interceptor';
 
 import { environment as ENV } from '../environments/environment';
+import { DevicesModule } from '../pages/devices/devices.module';
 
 // import * as Sentry from '@sentry/browser';
 
@@ -59,12 +61,15 @@ import { environment as ENV } from '../environments/environment';
     SimpleTestFinishPage,
     SanTestFinishPage,
     LusherTestPage,
-    LusherTestFinishPage
+    LusherTestFinishPage,
+    // DevicesPage,
+    DeviceInfoPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ComponentsModule,
+    DevicesModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -82,7 +87,9 @@ import { environment as ENV } from '../environments/environment';
     SimpleTestFinishPage,
     SanTestFinishPage,
     LusherTestPage,
-    LusherTestFinishPage
+    LusherTestFinishPage,
+    // DevicesPage,
+    DeviceInfoPage
   ],
   providers: [
     StatusBar,

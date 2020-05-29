@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { DEVICES } from './mock-devices';
 
 @Injectable()
 export class RequestsProvider {
@@ -25,4 +27,12 @@ export class RequestsProvider {
   postObjectMeta(data, jwt): Observable<any> {
     return this.http.post('/meta/' + data.type, { meta: data.meta, id: data.id}, { headers: {'Authorization': 'Bearer ' + jwt }});
   };
+
+  getDevices(jwt): Observable<any> {
+    return this.http.get('/devices', { headers:  {'Authorization': 'Bearer ' + jwt }});
+  };
+
+  getDevicesMock(jwt): Observable<any> {
+    return of(DEVICES);
+  }
 }

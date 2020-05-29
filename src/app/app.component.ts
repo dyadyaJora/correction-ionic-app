@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,6 +8,7 @@ import { AboutPage } from '../pages/about/about';
 import { StubPage } from '../pages/stub/stub';
 import { PulsePage } from '../pages/pulse/pulse';
 import { PulseVariabilityPage } from '../pages/pulse-variability/pulse-variability';
+import { DevicesPage } from '../pages/devices/devices';
 
 import { AuthProvider} from '../providers/auth';
   
@@ -18,6 +19,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
+  toast: any;
+  isDeviceSyncing: boolean = false;
+  queryParamsObj: any = {};
 
   pages: Array<{title: string, component: any}>;
 
@@ -25,36 +29,75 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public toastCtrl: ToastController,
     public authProvider: AuthProvider
   ) {
     this.initializeApp();
+    this._initQueryParams();
+
+    this.toast = this.toastCtrl.create({
+      duration: 3000
+    });
 
     this.authProvider.checkToken().then(token => {
-      if (token) {
-        this.authProvider.checkAuth(token)
-          .subscribe(data => {
-            if (data.valid) {
-              this.authProvider.token = token;
-            } else {
-              // если авторизация не валидна прилетает ошибка 401, обработчик ниже
-            }
+      return new Promise((resolve, reject) => {
+        if (token) {
+          this.authProvider.checkAuth(token)
+            .subscribe(data => {
+              if (data.valid) {
+                this.authProvider.token = token;
+                return new Promise(resolve => resolve('ok'));
+              } else {
+                // если авторизация не валидна прилетает ошибка 401, обработчик ниже
+              }
+            }, err => {
+              this._requestToken().subscribe(data => {
+                    this.authProvider.token = data.jwtToken;
+                    this.authProvider.saveToken(data.jwtToken);
+                    resolve('ok');
+                }, err => {
+                  console.log(err, 'Error getting token');
+                  reject(err);
+                });
+            });
+        } else {
+          this._requestToken().subscribe(data => {
+              this.authProvider.token = data.jwtToken;
+              this.authProvider.saveToken(data.jwtToken);
+              resolve('ok');
           }, err => {
-            this._requestToken();
+            console.log(err, 'Error getting token');
+            reject(err);
           });
-      } else {
-        this._requestToken();
+        }
+      });
+    })
+    .then(() => {
+      console.log("After successfull login");
+
+      if (this.queryParamsObj['sessionId']) {
+        console.log('called api/sync/session/token: '  + this.authProvider.token + '/' + val);
+        this._presentSyncDeviceToast(true);
       }
+    })
+    .catch(err => {
+      if (this.queryParamsObj['sessionId']) {
+        this._presentSyncDeviceToast(false);
+      }
+      console.log('error in auth promise chain', err);
     });
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Главная', component: HomePage },
+      { title: 'Приборы', component: DevicesPage },
       { title: 'О приложении', component: AboutPage },
-      { title: 'Вход в аккаунт', component: StubPage },
+      { title: 'Аккаунт', component: StubPage },
       { title: 'Пульс', component: PulsePage },
       { title: 'ВСР', component: PulseVariabilityPage }
     ];
 
+    console.log(location);
   }
 
   initializeApp() {
@@ -73,14 +116,30 @@ export class MyApp {
   }
 
   _requestToken() {
-    this.authProvider.getAuth()
-      .subscribe(
-        data => {
-          this.authProvider.token = data.jwtToken;
-          this.authProvider.saveToken(data.jwtToken);
-        },
-        err => {
-          console.log(err, 'Error getting token');
-        });
+    return this.authProvider.getAuth();
+  }
+
+  _presentSyncDeviceToast(sucess: boolean) {
+    if (sucess) {
+      this.toast.setMessage("Прибор успешно синхронизирован!")
+    } else {
+      this.toast.setMessage("Не удалось подключить устройство!");
+    }
+    this.toast.present();
+  }
+
+  _initQueryParams() {
+    let queryParams = location.href.split('?')[1];
+    if (!queryParams) {
+      return;
+    }
+
+    queryParams.split('&').forEach(q => {
+      let splitted = q.split('=');
+      let attr = splitted[0];
+      let val = splitted[1];
+
+      this.queryParamsObj[attr] = val;
+    });
   }
 }

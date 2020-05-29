@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Приборы</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor= "let device of devices; let i=index;" (click)="openDeviceInfo(i)">
+    <ion-item>
+      <ion-avatar item-start class="device-item__avatar">
+        <ion-icon name="ios-radio"></ion-icon>
+      </ion-avatar>
+      <h2>{{ device.name }}</h2>
+      <p>{{ device.status }}</p>
+    </ion-item>
+  
+    <ion-card-content>
+      <p>{{ device.description }}</p>
+      <p>ID: {{ device.id }}</p>
+    </ion-card-content>
+  
+    <ion-row>
+      <ion-col>
+        <button ion-button color="dark" icon-start clear small>
+          <div>{{ device.type }}</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="dark" icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>Подробнее</div>
+        </button>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          {{ device.moment }}
+        </ion-note>
+      </ion-col>
+    </ion-row>
+  
+  </ion-card>
+</ion-content>
