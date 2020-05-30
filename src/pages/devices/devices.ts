@@ -30,22 +30,37 @@ export class DevicesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DevicesPage');
-    this.requestsProvider.getDevicesMock(this.authProvider.token)
+    let promise = new Promise((resolve, reject) => {
+
+      if (!!this.authProvider.token) {
+        resolve(this.authProvider.token);
+        return;
+      }
+
+      return this.authProvider.checkToken();
+    })
+    .then(token => {
+      this.requestsProvider.getDevices(token)
       .subscribe(data => {
         this.devices = data.map(item => {
           item['moment'] = moment(item.lastSeen).locale('ru').fromNow();
-          if (item.lastSeen.getTime() < new Date().getTime() + 1 * 60 * 1000) {
+          if (new Date(item.lastSeen).getTime() < new Date().getTime() + 1 * 60 * 1000) {
             item['status'] = 'offline';
           } else {
             item['status'] = 'online'
           }
           return item;
         });
+        console.log(this.devices);
       }, err => {
         console.log("error loading devices list", err);
       });
-    
-    console.log(this.authProvider.storage, this.newDeviceId);
+      console.log(this.authProvider.storage, this.newDeviceId);
+    })
+    .catch(err => {
+      console.log('smth went wrong when loading devices', err);
+    });
+
   }
 
   openDeviceInfo(index: number) {

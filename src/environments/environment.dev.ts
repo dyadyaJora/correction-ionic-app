@@ -1,4 +1,4 @@
 export var environment = {
-  apiUrl: 'http://localhost:3000/nir-api',
+  apiUrl: 'http://localhost:3001',
   production: false
 }

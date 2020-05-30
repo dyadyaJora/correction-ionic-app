@@ -34,5 +34,9 @@ export class RequestsProvider {
 
   getDevicesMock(jwt): Observable<any> {
     return of(DEVICES);
+  };
+
+  putSessionUserSync(jwt, sessionId): Observable<any> {
+    return this.http.put('/api/v1/session/' + sessionId + '/sync', {}, { headers:  {'Authorization': 'Bearer ' + jwt }});
   }
 }

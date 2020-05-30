@@ -11,6 +11,7 @@ import { PulseVariabilityPage } from '../pages/pulse-variability/pulse-variabili
 import { DevicesPage } from '../pages/devices/devices';
 
 import { AuthProvider} from '../providers/auth';
+import { RequestsProvider } from '../providers/requests';
   
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public toastCtrl: ToastController,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public requestsProvider: RequestsProvider
   ) {
     this.initializeApp();
     this._initQueryParams();
@@ -46,10 +48,10 @@ export class MyApp {
             .subscribe(data => {
               if (data.valid) {
                 this.authProvider.token = token;
-                return new Promise(resolve => resolve('ok'));
-              } else {
-                // если авторизация не валидна прилетает ошибка 401, обработчик ниже
+                resolve('ok');
+                return;
               }
+              // если авторизация не валидна прилетает ошибка 401, обработчик ниже
             }, err => {
               this._requestToken().subscribe(data => {
                     this.authProvider.token = data.jwtToken;
@@ -74,11 +76,17 @@ export class MyApp {
     })
     .then(() => {
       console.log("After successfull login");
-
-      if (this.queryParamsObj['sessionId']) {
-        console.log('called api/sync/session/token: '  + this.authProvider.token + '/' + val);
-        this._presentSyncDeviceToast(true);
+      let val = this.queryParamsObj['sessionId']; 
+      if (!val) {
+        return;
       }
+      console.log('called api/sync/session/token: '  + this.authProvider.token + '/' + val);
+      this.requestsProvider.putSessionUserSync(this.authProvider.token, val)
+        .subscribe(ok => {
+          this._presentSyncDeviceToast(true);
+        }, err => {
+          this._presentSyncDeviceToast(false);
+        });
     })
     .catch(err => {
       if (this.queryParamsObj['sessionId']) {

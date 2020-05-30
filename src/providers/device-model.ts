@@ -1,5 +1,5 @@
 export class DeviceModel {
-  id: string;
+  hash: string;
   name: string;
   type: string;
   description: string;
