@@ -5,13 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
-import { StubPage } from '../pages/stub/stub';
 import { PulsePage } from '../pages/pulse/pulse';
 import { PulseVariabilityPage } from '../pages/pulse-variability/pulse-variability';
 import { DevicesPage } from '../pages/devices/devices';
 
 import { AuthProvider} from '../providers/auth';
 import { RequestsProvider } from '../providers/requests';
+import { AccountPage } from '../pages/account/account';
+import { CorrectionsPage } from '../pages/corrections/corrections';
   
 @Component({
   templateUrl: 'app.html'
@@ -51,26 +52,12 @@ export class MyApp {
                 resolve('ok');
                 return;
               }
-              // если авторизация не валидна прилетает ошибка 401, обработчик ниже
+              // если авторизация не валидна - ошибка 401
             }, err => {
-              this._requestToken().subscribe(data => {
-                    this.authProvider.token = data.jwtToken;
-                    this.authProvider.saveToken(data.jwtToken);
-                    resolve('ok');
-                }, err => {
-                  console.log(err, 'Error getting token');
-                  reject(err);
-                });
+              this._requestTockenSubscribe(resolve, reject);              
             });
         } else {
-          this._requestToken().subscribe(data => {
-              this.authProvider.token = data.jwtToken;
-              this.authProvider.saveToken(data.jwtToken);
-              resolve('ok');
-          }, err => {
-            console.log(err, 'Error getting token');
-            reject(err);
-          });
+          this._requestTockenSubscribe(resolve, reject);
         }
       });
     })
@@ -99,8 +86,9 @@ export class MyApp {
     this.pages = [
       { title: 'Главная', component: HomePage },
       { title: 'Приборы', component: DevicesPage },
+      { title: 'Коррекции', component: CorrectionsPage },
       { title: 'О приложении', component: AboutPage },
-      { title: 'Аккаунт', component: StubPage },
+      { title: 'Аккаунт', component: AccountPage },
       { title: 'Пульс', component: PulsePage },
       { title: 'ВСР', component: PulseVariabilityPage }
     ];
@@ -125,6 +113,17 @@ export class MyApp {
 
   _requestToken() {
     return this.authProvider.getAuth();
+  }
+
+  _requestTockenSubscribe(resolve, reject) {
+    this._requestToken().subscribe(data => {
+      this.authProvider.token = data.jwtToken;
+      this.authProvider.saveToken(data.jwtToken);
+      resolve('ok');
+    }, err => {
+      console.log(err, 'Error getting token');
+      reject(err);
+    });
   }
 
   _presentSyncDeviceToast(sucess: boolean) {

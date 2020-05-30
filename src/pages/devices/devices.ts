@@ -30,7 +30,7 @@ export class DevicesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DevicesPage');
-    let promise = new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
 
       if (!!this.authProvider.token) {
         resolve(this.authProvider.token);

@@ -32,6 +32,8 @@ import { BaseUrlInterceptor } from '../providers/base-interceptor';
 
 import { environment as ENV } from '../environments/environment';
 import { DevicesModule } from '../pages/devices/devices.module';
+import { AccountPage } from '../pages/account/account';
+import { CorrectionsPage } from '../pages/corrections/corrections';
 
 // import * as Sentry from '@sentry/browser';
 
@@ -63,7 +65,9 @@ import { DevicesModule } from '../pages/devices/devices.module';
     LusherTestPage,
     LusherTestFinishPage,
     // DevicesPage,
-    DeviceInfoPage
+    DeviceInfoPage,
+    AccountPage,
+    CorrectionsPage
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,9 @@ import { DevicesModule } from '../pages/devices/devices.module';
     LusherTestPage,
     LusherTestFinishPage,
     // DevicesPage,
-    DeviceInfoPage
+    DeviceInfoPage,
+    AccountPage,
+    CorrectionsPage
   ],
   providers: [
     StatusBar,
