@@ -13,7 +13,7 @@ import { AuthProvider} from '../providers/auth';
 import { RequestsProvider } from '../providers/requests';
 import { AccountPage } from '../pages/account/account';
 import { CorrectionsPage } from '../pages/corrections/corrections';
-  
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -54,16 +54,16 @@ export class MyApp {
               }
               // если авторизация не валидна - ошибка 401
             }, err => {
-              this._requestTockenSubscribe(resolve, reject);              
+              this._requestTokenSubscribe(resolve, reject);
             });
         } else {
-          this._requestTockenSubscribe(resolve, reject);
+          this._requestTokenSubscribe(resolve, reject);
         }
       });
     })
     .then(() => {
       console.log("After successfull login");
-      let val = this.queryParamsObj['sessionId']; 
+      let val = this.queryParamsObj['sessionId'];
       if (!val) {
         return;
       }
@@ -115,7 +115,7 @@ export class MyApp {
     return this.authProvider.getAuth();
   }
 
-  _requestTockenSubscribe(resolve, reject) {
+  _requestTokenSubscribe(resolve, reject) {
     this._requestToken().subscribe(data => {
       this.authProvider.token = data.jwtToken;
       this.authProvider.saveToken(data.jwtToken);

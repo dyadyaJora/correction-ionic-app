@@ -12,7 +12,7 @@
           Инфо
       </ion-card-header>
       <ul>
-        <li><b>Id устройства:</b> {{ device.id }} </li>
+        <li><b>Id устройства:</b> {{ device.hash }} </li>
         <li><b>Статус:</b> {{ device.status}} </li>
         <li><b>Время последнего обновления:</b> {{ lastUpdateString }} </li>
       </ul>
@@ -36,19 +36,19 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            &#x3b4; 50 %
+            &#x3b4; 10 %
           </ion-col>
           <ion-col>
-            &#x3b8; 50 %
+            &#x3b8; 10 %
           </ion-col>
           <ion-col>
-            &#x3b1; 50 %
+            &#x3b1; 30 %
           </ion-col>
           <ion-col>
-            &#x3b2; 50 %
+            &#x3b2; 40 %
           </ion-col>
           <ion-col>
-            &#x3b3; 50 %
+            &#x3b3; 10 %
           </ion-col>
         </ion-row>
       </ion-card-content>
@@ -57,12 +57,12 @@
       <ion-card-header>
         Последние записи
       </ion-card-header>
-    
+
       <ion-list>
         <ion-item>
           <a target="_blank" href="http://api_key:eyJrIjoiMXozb0k0eFN4NG5WRHZPWkdHYUx2NlVyTmpjaWNleVkiLCJuIjoiVE1QX1ZJRVdFUiIsImlkIjoxfQ==@127.0.0.1:3000/d/kXJanJ3Zz/psy-state-monitoring?orgId=1&from=1590639440563&to=1590639548158&var-sessionId=cc2068d5-265e-4d36-a03e-14084a197206&var-pulseSession=All&var-waves=All">cc2068d5-265e-4d36-a03e-14084a197206</a>
           <ion-note item-end>
-            To the moon
+            {{ lastUpdateString }}
           </ion-note>
         </ion-item>
       </ion-list>
