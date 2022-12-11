@@ -34,7 +34,7 @@
     "@sentry/browser": "^5.0.2",
     "@types/w3c-image-capture": "^1.0.2",
     "cordova-android": "6.2.3",
-    "cordova-browser": "^5.0.4",
+    "cordova-browser": "^6.0.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-flashlight": "^3.2.0",
